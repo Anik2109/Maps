@@ -1,0 +1,25 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Coffee Shop"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [-0.09, 51.505]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Library"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [-0.08, 51.506]
+            }
+        }
+    ]
+}
