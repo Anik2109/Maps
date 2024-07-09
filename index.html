@@ -3,22 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Leaflet Map</title>
+    <title>Interactive Map</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div class="container">
+        <div class="header">
+            <button class="menu-button"><i class="fas fa-bars"></i></button>
+        </div>
+        <div class="search-section">
+            <input type="text" class="search-bar" placeholder="Search...">
+            <button class="search-button">Search</button>
+            <button class="mic-button" id="micButton"><i class="fas fa-microphone"></i></button>
+        </div>
+        <div class="buttons">
+            <button class="option-button">Restaurants</button>
+            <button class="option-button">Things to do</button>
+            <button class="option-button">Transit</button>
+            <button class="option-button">Pharmacies</button>
+            <button class="option-button">ATMs</button>
+            <button class="option-button">Hotels</button>
+        </div>
+    </div>
     <div id="map"></div>
-     <div id="popup" class="popup">
-        <span id="popup-content"></span>
-        <button id="popup-close" class="popup-close">Close</button>
-    </div>
-    <div id="control-buttons" class="control-buttons">
-        <button onclick="removeAllMarkers()" class="map-control-button">Remove All Markers</button>
-<!--        <button onclick="saveGeoJSON()" class="map-control-button">Save Markers</button> -->
-    </div>
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
