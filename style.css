@@ -1,55 +1,110 @@
-#map {
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #7ec8e3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     height: 100vh;
 }
 
-.popup {
-    display: none;
-    position: absolute;
-    bottom: 20px;
-    right: 20px;
-    background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent background */
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-    z-index: 1000;
-    max-width: 250px; /* Limit the width of the popup */
+.container {
+    text-align: center;
+    width: 80%;
+    position: relative;
 }
 
-.popup-close {
-    margin-top: 10px;
-    padding: 5px 10px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 3px;
-    cursor: pointer;
-    font-size: 14px;
-}
-
-.popup-close:hover {
-    background-color: #0056b3;
-}
-
-.control-buttons {
+.header {
     position: absolute;
     top: 10px;
-    right: 20px;
-    z-index: 1000;
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
+    left: 10px;
 }
 
-.map-control-button {
-    padding: 10px;
-    background-color: #007bff;
-    color: white;
+.menu-button {
+    font-size: 24px;
+    background: none;
     border: none;
-    border-radius: 5px;
     cursor: pointer;
 }
 
-.map-control-button:hover {
-    background-color: #0056b3;
+.search-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.search-bar {
+    width: 50%;
+    padding: 10px;
+    border: 2px solid #ccc;
+    border-radius: 5px 0 0 5px;
+    outline: none;
+}
+
+.search-button {
+    padding: 11px 20px;
+    border: none;
+    border-radius: 0 5px 5px 0;
+    background-color: #333;
+    color: white;
+    cursor: pointer;
+}
+
+.search-button:hover {
+    background-color: #555;
+}
+
+.mic-button {
+    padding: 11px;
+    border: none;
+    background-color: #333;
+    color: white;
+    cursor: pointer;
+    border-radius: 50%;
+    margin-left: 10px;
+}
+
+.mic-button:hover {
+    background-color: #555;
+}
+
+.buttons {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.option-button {
+    margin: 10px;
+    padding: 15px 25px;
+    border: none;
+    border-radius: 25px;
+    background-color: white;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: transform 0.3s, background-color 0.3s;
+}
+
+.option-button:hover {
+    transform: scale(1.1);
+    background-color: #f0f0f0;
+}
+
+#map {
+    width: 150px;
+    height: 150px;
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    border: 2px solid #333;
+    border-radius: 10px;
+    z-index: 1000;
+    transition: transform 0.3s ease-in-out;
+    transform-origin: top right;
+}
+
+#map:hover {
+    transform: scale(1.5);
+    z-index: 2000; /* Ensures the map stays above other elements when zoomed */
 }
