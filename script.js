@@ -22,50 +22,36 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Base layers
     const streetLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '© OpenStreetMap contributors'
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     });
 
     const satelliteLayer = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
-        attribution: '© OpenTopoMap contributors'
+        attribution: 'Map data: &copy; <a href="https://www.opentopomap.org/">OpenTopoMap</a> contributors'
     });
 
-    const terrainLayer = L.tileLayer('https://{s}.tile.thunderforest.com/landscape/{z}/{x}/{y}.png?apikey=your-api-key', {
-        attribution: '© Thunderforest contributors'
+    const terrainLayer = L.tileLayer('https://{s}.tile.stamen.com/terrain/{z}/{x}/{y}.jpg', {
+        attribution: 'Map tiles by <a href="https://stamen.com/">Stamen Design</a>, under <a href="https://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="https://openstreetmap.org">OpenStreetMap</a>, under ODbL.'
     });
 
-    // Initialize the map
+    // Create map
     const map = L.map('map', {
         center: [51.505, -0.09],
         zoom: 13,
         layers: [streetLayer]
     });
 
-    // Base maps
-    const baseMaps = {
-        "Street": streetLayer,
-        "Satellite": satelliteLayer,
-        "Terrain": terrainLayer
+    // Layer control
+    const baseLayers = {
+        'Street': streetLayer,
+        'Satellite': satelliteLayer,
+        'Terrain': terrainLayer
     };
 
-    // Add control for base maps
-    L.control.layers(baseMaps).addTo(map);
+    L.control.layers(baseLayers).addTo(map);
 
-    // Locate the user's position and set the map view to it
-    map.locate({ setView: true, maxZoom: 16 });
+    // Add scale control
+    L.control.scale().addTo(map);
 
-    // Handle location found event
-    function onLocationFound(e) {
-        const radius = e.accuracy / 2;
-        L.marker(e.latlng).addTo(map)
-            .bindPopup(`You are within ${radius} meters from this point`).openPopup();
-        L.circle(e.latlng, radius).addTo(map);
-    }
-
-    // Handle location error event
-    function onLocationError(e) {
-        alert(e.message);
-    }
-
-    map.on('locationfound', onLocationFound);
-    map.on('locationerror', onLocationError);
+    // Add geolocation control to locate the user
+    L.control.locate().addTo(map);
 });
