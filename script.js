@@ -2,11 +2,34 @@ document.addEventListener('DOMContentLoaded', () => {
     const searchButton = document.querySelector('.search-button');
     const searchBar = document.querySelector('.search-bar');
     const micButton = document.getElementById('micButton');
+    const mapContainer = document.querySelector('.leaflet-container');
 
+     // Function to make the map fullscreen
+     function makeMapFullscreen() {
+        mapElement.classList.add('fullscreen-map');
+        searchSection.classList.add('fullscreen');
+    }
+    // Search button functionality
     searchButton.addEventListener('click', () => {
-        alert(`Searching for: ${searchBar.value}`);
+        const query = searchBar.value;
+        if (query) {
+            fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data && data.length > 0) {
+                        const { lat, lon, display_name } = data[0];
+                        map.setView([lat, lon], 15);
+                        L.marker([lat, lon]).addTo(map).bindPopup(display_name).openPopup();
+                    } else {
+                        alert('Location not found');
+                    }
+                });
+        } else {
+            alert('Please enter a search term');
+        }
     });
 
+    // Option buttons functionality
     const optionButtons = document.querySelectorAll('.option-button');
     optionButtons.forEach(button => {
         button.addEventListener('click', () => {
@@ -14,10 +37,33 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Microphone button interactivity
+    // Microphone button functionality using Web Speech API
     micButton.addEventListener('click', () => {
-        alert('Microphone button clicked');
-        // Add logic to start/stop recording or any other microphone functionality
+        if (!('webkitSpeechRecognition' in window)) {
+            alert('Your browser does not support Speech Recognition. Please use Google Chrome.');
+            return;
+        }
+
+        const recognition = new webkitSpeechRecognition();
+        recognition.lang = 'en-US'; // Set the language for recognition
+        recognition.interimResults = false; // Set to true if you want to show interim results
+
+        recognition.start();
+
+        recognition.onresult = (event) => {
+            const transcript = event.results[0][0].transcript;
+            searchBar.value = transcript; // Optionally set the search bar to the recognized text
+            alert(`Recognized: ${transcript}`);
+        };
+
+        recognition.onerror = (event) => {
+            console.error('Speech recognition error:', event.error);
+            alert('Error recognizing speech.');
+        };
+
+        recognition.onend = () => {
+            console.log('Speech recognition service disconnected');
+        };
     });
 
     // Base layers
